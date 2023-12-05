@@ -1,25 +1,11 @@
+import { FaBars } from "react-icons/fa";
+import { Link } from "react-router-dom";
 const NavBar = () => {
   const Navbar = (
     <>
-      <li>
-        <a>Item 1</a>
-      </li>
-      <li>
-        <details>
-          <summary>Parent</summary>
-          <ul className="p-2">
-            <li>
-              <a>Submenu 1</a>
-            </li>
-            <li>
-              <a>Submenu 2</a>
-            </li>
-          </ul>
-        </details>
-      </li>
-      <li>
-        <a>Item 3</a>
-      </li>
+      <li className="hover:underline"><Link to='/'>Home</Link></li>
+      <li className="hover:underline"><Link to='/about'>About</Link></li>
+      <li className="hover:underline"><Link to='/login'>LogIn</Link></li>
     </>
   );
   return (
@@ -28,20 +14,7 @@ const NavBar = () => {
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
+              <FaBars />
             </div>
             <ul
               tabIndex={0}
@@ -50,14 +23,22 @@ const NavBar = () => {
               {Navbar}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">Real State</a>
+          <Link to='/' className="btn btn-ghost text-xl">Real State</Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <a className="btn">Button</a>
+          <form>
+            <div className="join">
+              <input
+                className="border input-bordered join-item"
+                placeholder="Email"
+              />
+              <button className="btn join-item rounded-r-full">Search</button>
+            </div>
+          </form>
         </div>
         <div className="navbar-end">
           <ul className="menu menu-horizontal px-1 hidden lg:flex">{Navbar}</ul>
-          <a className="btn hidden md:flex">Button</a>
+          <button className="lg:hidden"><Link>profile</Link></button>
         </div>
       </div>
     </div>
@@ -65,3 +46,4 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
