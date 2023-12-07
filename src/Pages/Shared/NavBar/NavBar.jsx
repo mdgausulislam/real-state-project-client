@@ -32,16 +32,16 @@ const NavBar = () => {
           <div className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[45vh] left-0 ${isMenuOpen ? 'top-[9%]' : 'top-[-100%]'} md:w-auto w-full flex items-center px-5 mt-2`}>
             <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 text-xl t">
               <li>
-                <Link className="hover:text-red-600 hover:underline" href="#">Home</Link>
+                <Link to='/' className="hover:text-red-600 hover:underline" href="#">Home</Link>
               </li>
               <li>
-                <Link className="hover:text-red-600 hover:underline" href="#">About</Link>
+                <Link to='/about' className="hover:text-red-600 hover:underline" href="#">About</Link>
               </li>
               <li>
                 <Link className="hover:text-red-600 hover:underline" href="#">Profile</Link>
               </li>
               <li>
-                <Link className="hover:text-red-600 hover:underline" href="#">Login</Link>
+                <Link to='/login' className="hover:text-red-600 hover:underline" href="#">Login</Link>
               </li>
             </ul>
           </div>
