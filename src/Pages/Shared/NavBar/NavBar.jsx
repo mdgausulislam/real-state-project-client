@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { FaBars, FaSearch } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import { FaBars, FaSearch } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,7 +15,9 @@ const NavBar = () => {
         <nav className="flex justify-between items-center w-[92%] mx-auto">
           <div className="flex items-center gap-6">
             <FaBars onClick={toggleMenu} className="cursor-pointer md:hidden" />
-            <h1 className='text-2xl text-red-600'>Real State</h1>
+            <Link to="/">
+              <h1 className="text-2xl text-red-600">Real State</h1>
+            </Link>
           </div>
           <div className="hidden sm:flex items-center gap-6">
             <div className="relative">
@@ -24,28 +26,55 @@ const NavBar = () => {
                 placeholder="Search..."
                 className="border border-gray-300 bg-white h-10 pl-5 pr-10 rounded-full text-sm focus:outline-none"
               />
-              <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
+              <button
+                type="submit"
+                className="absolute right-0 top-0 mt-3 mr-4"
+              >
                 <FaSearch className="text-gray-500" /> {/* Search icon */}
               </button>
             </div>
           </div>
-          <div className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[45vh] left-0 ${isMenuOpen ? 'top-[9%]' : 'top-[-100%]'} md:w-auto w-full flex items-center px-5 mt-2`}>
+          <div
+            className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[45vh] left-0 ${
+              isMenuOpen ? "top-[9%]" : "top-[-100%]"
+            } md:w-auto w-full flex items-center px-5 mt-2`}
+          >
             <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 text-xl t">
               <li>
-                <Link to='/' className="hover:text-red-600 hover:underline" href="#">Home</Link>
+                <Link
+                  to="/"
+                  className="hover:text-red-600 hover:underline"
+                  href="#"
+                >
+                  Home
+                </Link>
               </li>
               <li>
-                <Link to='/about' className="hover:text-red-600 hover:underline" href="#">About</Link>
+                <Link
+                  to="/about"
+                  className="hover:text-red-600 hover:underline"
+                  href="#"
+                >
+                  About
+                </Link>
               </li>
               <li>
-                <Link className="hover:text-red-600 hover:underline" href="#">Profile</Link>
+                <Link className="hover:text-red-600 hover:underline" href="#">
+                  Profile
+                </Link>
               </li>
               <li>
-                <Link to='/login' className="hover:text-red-600 hover:underline" href="#">Login</Link>
+                <Link
+                  to="/login"
+                  className="hover:text-red-600 hover:underline"
+                  href="#"
+                >
+                  Login
+                </Link>
               </li>
             </ul>
           </div>
-          <div className='md:hidden'>
+          <div className="md:hidden">
             <button>hemonto</button>
           </div>
         </nav>
@@ -56,12 +85,7 @@ const NavBar = () => {
 
 export default NavBar;
 
-
-
-
 //Jquery react navbar
-
-
 
 // import { FaBars } from "react-icons/fa";
 // const NavBar = () => {
@@ -116,5 +140,3 @@ export default NavBar;
 // };
 
 // export default NavBar;
-
-
