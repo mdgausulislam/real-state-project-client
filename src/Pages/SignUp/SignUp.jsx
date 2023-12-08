@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -11,25 +15,24 @@ const SignUp = () => {
     });
   };
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData), // Verify formData has all required fields
-    });
+    try {
+      setLoading(true);
+      const res = await axios.post("/api/auth/signup", formData);
+      console.log(res.data);
 
-    if (!res.ok) {
-      const errorResponse = await res.json(); // Parse error response
-      console.error("Error:", errorResponse); // Log the error response for debugging
-      // Handle error, show error message to the user, etc.
-    } else {
-      const data = await res.json();
-      console.log(data); // Log successful response
-      // Handle successful signup if needed
+      if (res.data.success === false) {
+        setError(res.data.message);
+        setLoading(true);
+        return;
+      }
+      setLoading(false);
+      setError(null);
+      navigate("/login");
+    } catch (error) {
+      setLoading(false);
+      setError(error);
     }
   };
 
@@ -51,7 +54,7 @@ const SignUp = () => {
                 name="userName"
                 onChange={handleChange}
                 className="input input-bordered"
-                required
+                // required
               />
             </div>
             <div className="form-control">
@@ -64,7 +67,7 @@ const SignUp = () => {
                 name="email"
                 onChange={handleChange}
                 className="input input-bordered"
-                required
+                // required
               />
             </div>
             <div className="form-control">
@@ -77,18 +80,14 @@ const SignUp = () => {
                 name="password" // Ensure the name attribute is set to "password"
                 onChange={handleChange}
                 className="input input-bordered"
-                required
+                // required
               />
             </div>
-            {/* <div className="form-control mt-6">
-              <input
-                type="submit"
-                value="Sign Up"
-                className="btn btn-primary"
-              />
-            </div> */}
-            <button className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">
-              Sign Up
+            <button
+              disabled={loading}
+              className="bg-blue-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+            >
+              {loading ? "loading..." : "Sign Up"}
             </button>
           </form>
           <div className="text-center mb-5">
@@ -99,6 +98,11 @@ const SignUp = () => {
               </span>
             </p>
           </div>
+          {error && (
+            <p className="text-red-500 mt-5">
+              Error occurred: {error.message || "Something went wrong!"}
+            </p>
+          )}
         </div>
       </div>
     </div>
