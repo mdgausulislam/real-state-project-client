@@ -32,7 +32,7 @@ const LogIn = () => {
         dispatch(signInFailure(res.data.message));
         return;
       }
-      dispatch(signInSuccess()); // Make sure to call signInSuccess with parentheses
+      dispatch(signInSuccess(res.data));
       navigate("/");
     } catch (error) {
       dispatch(signInFailure(error.message));
