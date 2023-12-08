@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
@@ -54,7 +55,7 @@ const SignUp = () => {
                 name="userName"
                 onChange={handleChange}
                 className="input input-bordered"
-                // required
+              // required
               />
             </div>
             <div className="form-control">
@@ -67,7 +68,7 @@ const SignUp = () => {
                 name="email"
                 onChange={handleChange}
                 className="input input-bordered"
-                // required
+              // required
               />
             </div>
             <div className="form-control">
@@ -80,7 +81,7 @@ const SignUp = () => {
                 name="password" // Ensure the name attribute is set to "password"
                 onChange={handleChange}
                 className="input input-bordered"
-                // required
+              // required
               />
             </div>
             <button
@@ -98,11 +99,8 @@ const SignUp = () => {
               </span>
             </p>
           </div>
-          {error && (
-            <p className="text-red-500 mt-5">
-              Error occurred: {error.message || "Something went wrong!"}
-            </p>
-          )}
+          {error && (<p className="text-red-500 mt-5">{error}</p>)}
+          <SocialLogin />
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import {
   signInStart,
   signInSuccess,
 } from "../../redux/user/userSlice";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const LogIn = () => {
   const [formData, setFormData] = useState({});
@@ -80,7 +81,7 @@ const LogIn = () => {
               {loading ? "loading..." : "Log In"}
             </button>
           </form>
-          <div className="text-center mb-5">
+          <div className="text-center mb-2">
             <p>
               Do not have an account?
               <span className="link link-hover text-blue-600">
@@ -89,6 +90,7 @@ const LogIn = () => {
             </p>
           </div>
           {error && <p className="text-red-500 mt-5">{error}</p>}
+          <SocialLogin />
         </div>
       </div>
     </div>
