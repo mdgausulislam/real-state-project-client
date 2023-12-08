@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { FaBars, FaSearch } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
+  const { currentUser } = useSelector(state => state.user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -35,9 +37,8 @@ const NavBar = () => {
             </div>
           </div>
           <div
-            className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[45vh] left-0 ${
-              isMenuOpen ? "top-[9%]" : "top-[-100%]"
-            } md:w-auto w-full flex items-center px-5 mt-2`}
+            className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[45vh] left-0 ${isMenuOpen ? "top-[9%]" : "top-[-100%]"
+              } md:w-auto w-full flex items-center px-5 mt-2`}
           >
             <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 text-xl t">
               <li>
@@ -59,23 +60,39 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-red-600 hover:underline" href="#">
+                <Link to='/profile' className="hover:text-red-600 hover:underline" href="#">
                   Profile
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/login"
+                  to="/profile"
                   className="hover:text-red-600 hover:underline"
                   href="#"
                 >
-                  Login
+                  {currentUser ? (
+                    <img className="rounded-full w-7 h-7" src={currentUser.avatar} alt="profile" />
+                  ) : (
+                    <span>Login</span>
+                  )}
+
                 </Link>
               </li>
             </ul>
           </div>
           <div className="md:hidden">
-            <button>hemonto</button>
+            <Link
+              to="/profile"
+              className="hover:text-red-600 hover:underline"
+              href="#"
+            >
+              {currentUser ? (
+                <img className="rounded-full w-7 h-7" src={currentUser.avatar} alt="profile" />
+              ) : (
+                <span>Login</span>
+              )}
+
+            </Link>
           </div>
         </nav>
       </header>

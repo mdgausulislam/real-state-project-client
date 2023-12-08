@@ -3,11 +3,12 @@ import { app } from '../../../firebase/firebase.config';
 import axios from "axios";
 import { useDispatch } from 'react-redux';
 import { signInSuccess } from '../../../redux/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 const SocialLogin = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleGoogleClick = async () => {
-
         try {
             const provider = new GoogleAuthProvider();
             const auth = getAuth(app);
@@ -19,6 +20,7 @@ const SocialLogin = () => {
             }
             const res = await axios.post("/api/auth/google", saveUser);
             dispatch(signInSuccess(res.data));
+            navigate('/');
             console.log(res.data);
             console.log(result);
         } catch (error) {
