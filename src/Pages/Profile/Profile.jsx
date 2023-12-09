@@ -1,28 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { app } from "../../firebase/firebase.config";
+import { updateUserFailure, updateUserStart, updateUserSuccess } from "../../redux/user/userSlice";
+import axios from "axios";
 
 const Profile = () => {
     const fileRef = useRef(null);
-    const { currentUser } = useSelector((state) => state.user);
+    const { currentUser, loading, error } = useSelector((state) => state.user);
     const [file, setFile] = useState(undefined);
     const [filePerc, setFilePerc] = useState(0);
     const [fileUploadError, setFileUploadError] = useState(false);
     const [formData, setFormData] = useState({});
-    // const [updateSuccess, setUpdateSuccess] = useState(false);
-    // const [showListingsError, setShowListingsError] = useState(false);
-    // const [userListings, setUserListings] = useState([]);
-    // const dispatch = useDispatch();
-    // console.log(filePerc);
-    // console.log(fileUploadError);
-    // console.log(formData);
-
-    // firebase storage
-    // allow read;
-    // allow write: if
-    // request.resource.size < 2 * 1024 * 1024 &&
-    // request.resource.contentType.matches('image/.*')
+    const [updateSuccess, setUpdateSuccess] = useState(false);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (file) {
@@ -43,7 +34,7 @@ const Profile = () => {
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 setFilePerc(Math.round(progress));
             },
-            (error) => {
+            () => {
                 setFileUploadError(true);
             },
             () => {
@@ -53,6 +44,28 @@ const Profile = () => {
             }
         );
     };
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            dispatch(updateUserStart());
+            const res = await axios.post(`/api/user/update/${currentUser._id}`, formData);
+            console.log(res.data);
+            if (res.data.success === false) {
+                dispatch(updateUserFailure(res.data.message));
+                return;
+            }
+            dispatch(updateUserSuccess(res.data))
+            setUpdateSuccess(true);
+
+        } catch (error) {
+            dispatch(updateUserFailure(error.message));
+        }
+    }
     return (
         <div className="lg:mx-96 md:mx-48 max-h-screen bg-base-200">
             <div className="hero-content lg:px-16 md:px-12 flex-col">
@@ -60,7 +73,7 @@ const Profile = () => {
                     <h1 className="text-5xl font-bold">Profile!</h1>
                 </div>
                 <div className="card shrink-0 shadow-2xl bg-base-100 w-full">
-                    <form className="card-body">
+                    <form onSubmit={handleSubmit} className="card-body">
                         <div className="form-control">
                             <input
                                 onChange={(e) => setFile(e.target.files[0])} type="file"
@@ -87,10 +100,11 @@ const Profile = () => {
                                 <span className="label-text">UserName</span>
                             </label>
                             <input
+                                onChange={handleChange}
                                 type="text"
                                 placeholder="UserName..."
                                 name="userName"
-
+                                defaultValue={currentUser.userName}
                                 className="input input-bordered"
                                 required
                             />
@@ -100,12 +114,13 @@ const Profile = () => {
                                 <span className="label-text">Email</span>
                             </label>
                             <input
+                                onChange={handleChange}
                                 type="email"
                                 placeholder="email"
                                 name="email"
-
+                                defaultValue={currentUser.email}
                                 className="input input-bordered"
-                                required
+                            // required
                             />
                         </div>
                         <div className="form-control">
@@ -116,16 +131,16 @@ const Profile = () => {
                                 type="password"
                                 placeholder="password"
                                 name="password"
-
+                                onChange={handleChange}
                                 className="input input-bordered"
-                                required
+                            // required
                             />
                         </div>
                         <button
-
+                            disabled={loading}
                             className="bg-green-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
                         >
-                            Update
+                            {loading ? 'loading' : 'Update'}
                         </button>
                         <button
 
@@ -134,10 +149,15 @@ const Profile = () => {
                             Create Listing
                         </button>
                     </form>
+                    <p className="text-red-700 self-center text-sm">{error ? error : ''}</p>
+                    <p className='text-green-700 mt-5'>
+                        {updateSuccess ? 'User is updated successfully!' : ''}
+                    </p>
                     <div className="flex justify-between mx-12 my-4">
                         <h1 className="text-red-700 font-bold">Delete Acount</h1>
                         <h2 className="text-green-700 font-bold">Sign Out</h2>
                     </div>
+
                 </div>
             </div>
         </div>

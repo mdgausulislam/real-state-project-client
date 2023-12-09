@@ -89,7 +89,7 @@ const LogIn = () => {
               </span>
             </p>
           </div>
-          {error && <p className="text-red-500 mt-5">{error}</p>}
+          <p className="text-red-700 self-center text-sm">{error ? error : ''}</p>
           <SocialLogin />
         </div>
       </div>
