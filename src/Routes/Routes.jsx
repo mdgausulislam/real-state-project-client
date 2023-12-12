@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path: "/create-listing/:id",
+        path: "/create-listing",
         element: <CreatingList />
       },
       {

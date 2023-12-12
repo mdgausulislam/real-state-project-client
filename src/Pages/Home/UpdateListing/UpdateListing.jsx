@@ -10,10 +10,11 @@
 // import { useNavigate } from 'react-router-dom';
 
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { app } from "../../../firebase/firebase.config";
+import axios from "axios";
 
 
 const UpdateListing = () => {
@@ -38,7 +39,24 @@ const UpdateListing = () => {
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
+    const params = useParams();
     console.log(formData);
+
+    useEffect(() => {
+        const fetchListing = async () => {
+            const listingId = params.id;
+            console.log(listingId);
+            const res = await axios.get(`/api/listing/get/${listingId}`);
+            if (res.data.success === false) {
+                console.log(res.data.message);
+                return;
+            }
+            setFormData(res.data);
+        };
+
+        fetchListing();
+    }, []);
+
     const handleImageSubmit = () => {
         if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
             setUploading(true);
@@ -139,22 +157,15 @@ const UpdateListing = () => {
                 return setError('Discount price must be lower than regular price');
             setLoading(true);
             setError(false);
-            const res = await fetch('/api/listing/create', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    ...formData,
-                    userRef: currentUser._id,
-                }),
+            const res = await axios.post('/api/listing/create', {
+                ...formData,
+                userRef: currentUser._id,
             });
-            const data = await res.json();
             setLoading(false);
-            if (data.success === false) {
-                setError(data.message);
+            if (res.data.success === false) {
+                setError(res.data.message);
             }
-            navigate(`/listing/${data._id}`);
+            navigate(`/listing/${res.data._id}`);
         } catch (error) {
             setError(error.message);
             setLoading(false);
