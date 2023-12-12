@@ -1,14 +1,122 @@
+// import { useState } from "react";
+// import { FaBars, FaSearch } from "react-icons/fa";
+// import { useSelector } from "react-redux";
+// import { Link } from "react-router-dom";
+
+// const NavBar = () => {
+//   const { currentUser } = useSelector(state => state.user);
+//   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+//   const toggleMenu = () => {
+//     setIsMenuOpen(!isMenuOpen);
+//   };
+
+//   return (
+//     <div className="font-[Poppins] bg-gradient-to-t from-[#fbc2eb] to-[#a6c1ee]">
+//       <header className="bg-white py-5">
+//         <nav className="flex justify-between items-center w-[92%] mx-auto">
+//           <div className="flex items-center gap-6">
+//             <FaBars onClick={toggleMenu} className="cursor-pointer md:hidden" />
+//             <Link to="/">
+//               <h1 className="text-2xl text-red-600">Real State</h1>
+//             </Link>
+//           </div>
+//           <div className="hidden sm:flex items-center gap-6">
+//             <div className="relative">
+//               <input
+//                 type="text"
+//                 placeholder="Search..."
+//                 className="border border-gray-300 bg-white h-10 pl-5 pr-10 rounded-full text-sm focus:outline-none"
+//               />
+//               <button
+//                 type="submit"
+//                 className="absolute right-0 top-0 mt-3 mr-4"
+//               >
+//                 <FaSearch className="text-gray-500" /> {/* Search icon */}
+//               </button>
+//             </div>
+//           </div>
+//           <div
+//             className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[45vh] left-0 ${isMenuOpen ? "top-[9%]" : "top-[-100%]"
+//               } md:w-auto w-full flex items-center px-5 mt-2`}
+//           >
+//             <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 text-xl t">
+//               <li>
+//                 <Link
+//                   to="/"
+//                   className="hover:text-red-600 hover:underline"
+//                   href="#"
+//                 >
+//                   Home
+//                 </Link>
+//               </li>
+//               <li>
+//                 <Link
+//                   to="/about"
+//                   className="hover:text-red-600 hover:underline"
+//                   href="#"
+//                 >
+//                   About
+//                 </Link>
+//               </li>
+//               <li>
+//                 <Link
+//                   to="/profile"
+//                   className="hover:text-red-600 hover:underline"
+//                   href="#"
+//                 >
+//                   {currentUser ? (
+//                     <img className="rounded-full w-7 h-7" src={currentUser.avatar} alt="profile" />
+//                   ) : (
+//                     <span>Login</span>
+//                   )}
+
+//                 </Link>
+//               </li>
+//             </ul>
+//           </div>
+//           <div className="md:hidden">
+//             <Link
+//               to="/profile"
+//               className="hover:text-red-600 hover:underline"
+//               href="#"
+//             >
+//               {currentUser ? (
+//                 <img className="rounded-full w-7 h-7" src={currentUser.avatar} alt="profile" />
+//               ) : (
+//                 <span>Login</span>
+//               )}
+
+//             </Link>
+//           </div>
+//         </nav>
+//       </header>
+//     </div>
+//   );
+// };
+
+// export default NavBar;
+
 import { useState } from "react";
-import { FaBars, FaSearch } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const { currentUser } = useSelector(state => state.user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleProfileClick = () => {
+    if (currentUser) {
+      navigate("/profile");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -22,19 +130,7 @@ const NavBar = () => {
             </Link>
           </div>
           <div className="hidden sm:flex items-center gap-6">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search..."
-                className="border border-gray-300 bg-white h-10 pl-5 pr-10 rounded-full text-sm focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="absolute right-0 top-0 mt-3 mr-4"
-              >
-                <FaSearch className="text-gray-500" /> {/* Search icon */}
-              </button>
-            </div>
+            {/* Search Input */}
           </div>
           <div
             className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[45vh] left-0 ${isMenuOpen ? "top-[9%]" : "top-[-100%]"
@@ -42,57 +138,40 @@ const NavBar = () => {
           >
             <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 text-xl t">
               <li>
-                <Link
-                  to="/"
-                  className="hover:text-red-600 hover:underline"
-                  href="#"
-                >
+                <Link to="/" className="hover:text-red-600 hover:underline">
                   Home
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/about"
-                  className="hover:text-red-600 hover:underline"
-                  href="#"
-                >
+                <Link to="/about" className="hover:text-red-600 hover:underline">
                   About
                 </Link>
               </li>
               <li>
-                <Link to='/profile' className="hover:text-red-600 hover:underline" href="#">
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/profile"
-                  className="hover:text-red-600 hover:underline"
-                  href="#"
+                <button
+                  onClick={handleProfileClick}
+                  className="hover:text-red-600 hover:underline cursor-pointer"
                 >
                   {currentUser ? (
                     <img className="rounded-full w-7 h-7" src={currentUser.avatar} alt="profile" />
                   ) : (
                     <span>Login</span>
                   )}
-
-                </Link>
+                </button>
               </li>
             </ul>
           </div>
           <div className="md:hidden">
-            <Link
-              to="/profile"
-              className="hover:text-red-600 hover:underline"
-              href="#"
+            <button
+              onClick={handleProfileClick}
+              className="hover:text-red-600 hover:underline cursor-pointer"
             >
               {currentUser ? (
                 <img className="rounded-full w-7 h-7" src={currentUser.avatar} alt="profile" />
               ) : (
                 <span>Login</span>
               )}
-
-            </Link>
+            </button>
           </div>
         </nav>
       </header>
@@ -101,6 +180,7 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
 
 //Jquery react navbar
 

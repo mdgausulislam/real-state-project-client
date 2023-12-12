@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { app } from "../../firebase/firebase.config";
-import { updateUserFailure, updateUserStart, updateUserSuccess } from "../../redux/user/userSlice";
+import { deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserFailure, signOutUserStart, signOutUserSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from "../../redux/user/userSlice";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const Profile = () => {
     const fileRef = useRef(null);
@@ -14,6 +16,7 @@ const Profile = () => {
     const [formData, setFormData] = useState({});
     const [updateSuccess, setUpdateSuccess] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (file) {
@@ -66,6 +69,38 @@ const Profile = () => {
             dispatch(updateUserFailure(error.message));
         }
     }
+
+    const handleDeleteUser = async () => {
+        try {
+            dispatch(deleteUserStart());
+            const res = await axios.delete(`/api/user/delete/${currentUser._id}`)
+            if (res.data.success === false) {
+                dispatch(deleteUserFailure(res.data.message));
+                return;
+            }
+            dispatch(deleteUserSuccess(res.data));
+            navigate('/signup');
+        } catch (error) {
+            dispatch(deleteUserFailure(error.message));
+        }
+    };
+
+    const handleSignOut = async () => {
+        try {
+            dispatch(signOutUserStart());
+            const res = await fetch('/api/auth/signout');
+            const data = await res.json();
+            if (data.success === false) {
+                dispatch(signOutUserFailure(data.message));
+                return;
+            }
+            dispatch(signOutUserSuccess(data));
+            navigate('/login')
+        } catch (error) {
+            dispatch(signOutUserFailure(error.message));
+        }
+    };
+
     return (
         <div className="lg:mx-96 md:mx-48 max-h-screen bg-base-200">
             <div className="hero-content lg:px-16 md:px-12 flex-col">
@@ -80,7 +115,12 @@ const Profile = () => {
                                 ref={fileRef}
                                 hidden
                                 accept="image/*" />
-                            <img onClick={() => fileRef.current.click()} className="cursor-pointer" src={formData.avatar || currentUser.avatar} alt="profile" />
+                            <img
+                                onClick={() => fileRef.current.click()}
+                                src={formData.avatar || currentUser.avatar}
+                                alt='profile'
+                                className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2'
+                            />
                             <p className='text-sm self-center'>
                                 {fileUploadError ? (
                                     <span className='text-red-700'>
@@ -154,8 +194,8 @@ const Profile = () => {
                         {updateSuccess ? 'User is updated successfully!' : ''}
                     </p>
                     <div className="flex justify-between mx-12 my-4">
-                        <h1 className="text-red-700 font-bold">Delete Acount</h1>
-                        <h2 className="text-green-700 font-bold">Sign Out</h2>
+                        <button onClick={handleDeleteUser} className="text-red-700 font-bold cursor-pointer">Delete Acount</button>
+                        <button onClick={handleSignOut} className="text-green-700 font-bold">Sign Out</button>
                     </div>
 
                 </div>
