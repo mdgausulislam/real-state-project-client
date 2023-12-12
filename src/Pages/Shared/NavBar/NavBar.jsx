@@ -97,13 +97,14 @@
 
 // export default NavBar;
 
-import { useState } from "react";
-import { FaBars } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { FaBars, FaSearch } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const { currentUser } = useSelector(state => state.user);
+  const [searchTerm, setSearchTerm] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -119,6 +120,21 @@ const NavBar = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('searchTerm', searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, []);
+
   return (
     <div className="font-[Poppins] bg-gradient-to-t from-[#fbc2eb] to-[#a6c1ee]">
       <header className="bg-white py-5">
@@ -129,9 +145,20 @@ const NavBar = () => {
               <h1 className="text-2xl text-red-600">Real State</h1>
             </Link>
           </div>
-          <div className="hidden sm:flex items-center gap-6">
-            {/* Search Input */}
-          </div>
+          <form onSubmit={handleSubmit} className="items-center gap-6">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="border border-gray-300 bg-white h-10 pl-5 pr-10 rounded-full text-sm focus:outline-none"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button className="absolute right-0 top-0 mt-3 mr-4">
+                <FaSearch className="text-gray-500" />
+              </button>
+            </div>
+          </form>
           <div
             className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[45vh] left-0 ${isMenuOpen ? "top-[9%]" : "top-[-100%]"
               } md:w-auto w-full flex items-center px-5 mt-2`}
