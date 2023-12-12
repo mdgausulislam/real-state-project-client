@@ -7,6 +7,7 @@ import About from "../Pages/Home/About/About";
 import Profile from "../Pages/Profile/Profile";
 import CreatingList from "../Pages/Home/CreatingList/CreatingList";
 import UpdateListing from "../Pages/Home/UpdateListing/UpdateListing";
+import ListingPage from "../Pages/Home/ListingPage/ListingPage";
 
 export const router = createBrowserRouter([
   {
@@ -40,7 +41,12 @@ export const router = createBrowserRouter([
       {
         path: "/update-listing/:id",
         element: <UpdateListing />
-      }
+      },
+      {
+        path: "/listing/:id",
+        element: <ListingPage />
+      },
+
     ],
   },
 ]);
