@@ -45,13 +45,13 @@ const UpdateListing = () => {
     useEffect(() => {
         const fetchListing = async () => {
             const listingId = params.id;
-            console.log(listingId);
-            const res = await axios.get(`/api/listing/get/${listingId}`);
-            if (res.data.success === false) {
-                console.log(res.data.message);
+            const res = await fetch(`/api/listing/get/${listingId}`);
+            const data = await res.json();
+            if (data.success === false) {
+                console.log(data.message);
                 return;
             }
-            setFormData(res.data);
+            setFormData(data);
         };
 
         fetchListing();
@@ -157,7 +157,7 @@ const UpdateListing = () => {
                 return setError('Discount price must be lower than regular price');
             setLoading(true);
             setError(false);
-            const res = await axios.post('/api/listing/create', {
+            const res = await axios.post(`/api/listing/update/${params.id}`, {
                 ...formData,
                 userRef: currentUser._id,
             });
