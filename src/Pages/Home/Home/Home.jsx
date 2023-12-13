@@ -5,6 +5,7 @@ import SwiperCore from 'swiper';
 import 'swiper/css/bundle';
 import Listingitems from '../ListingItems/Listingitems';
 import Banner from '../Banner/Banner';
+import OurTeam from '../OurTeam/OurTeam';
 
 const Home = () => {
     const [offerListings, setOfferListings] = useState([]);
@@ -68,6 +69,7 @@ const Home = () => {
                 </Link>
             </div> */}
             <Banner />
+
             {/* swiper */}
 
             {/* <Swiper navigation>
@@ -131,6 +133,7 @@ const Home = () => {
                     </div>
                 )}
             </div>
+            <OurTeam />
         </div>
     );
 }
