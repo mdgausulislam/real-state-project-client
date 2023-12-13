@@ -25,8 +25,6 @@ const ListingPage = () => {
     const params = useParams();
     const { currentUser } = useSelector((state) => state.user);
 
-    console.log(currentUser, listing?.useRef);
-
     useEffect(() => {
         const fetchListing = async () => {
             try {
@@ -47,9 +45,7 @@ const ListingPage = () => {
             }
         };
         fetchListing();
-    }, [params.id]);
-    console.log(listing);
-
+    }, [params.listingId]);
 
     return (
         <main>
@@ -137,7 +133,7 @@ const ListingPage = () => {
                                 {listing.furnished ? 'Furnished' : 'Unfurnished'}
                             </li>
                         </ul>
-                        {currentUser && listing.useRef !== currentUser._id && !contact && (
+                        {currentUser && listing.userRef !== currentUser._id && !contact && (
                             <button
                                 onClick={() => setContact(true)}
                                 className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3'
