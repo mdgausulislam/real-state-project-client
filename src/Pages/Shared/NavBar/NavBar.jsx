@@ -169,7 +169,7 @@ const NavBar = () => {
             className={`nav-links duration-500 md:static absolute md:min-h-fit min-h-[30vh] left-0 ${isMenuOpen ? "top-[12%] z-20 bg-blue-500 lg:bg-transparent" : "top-[-100%]"
               } md:w-auto w-full flex items-center px-5 mt-2`}
           >
-            <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-6 text-xl t">
+            <ul className="flex md:flex-row flex-col md:gap-[4vw] gap-6 text-xl t">
               <li>
                 <Link to="/" onClick={handleNavLinkClick} className="hover:text-red-600 hover:underline">
                   Home
