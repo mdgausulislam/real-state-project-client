@@ -111,6 +111,12 @@ const NavBar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const handleNavLinkClick = () => {
+    if (isMenuOpen) {
+      // If the menu is open, close it
+      setIsMenuOpen(false);
+    }
+  };
 
   const handleProfileClick = () => {
     if (currentUser) {
@@ -137,7 +143,7 @@ const NavBar = () => {
 
   return (
     <div className="font-[Poppins] bg-gradient-to-t from-[#fbc2eb] to-[#a6c1ee]">
-      <header className="bg-white py-5">
+      <header className="bg-opacity-5 py-5">
         <nav className="flex justify-between items-center w-[92%] mx-auto">
           <div className="flex items-center gap-6">
             <FaBars onClick={toggleMenu} className="cursor-pointer md:hidden" />
@@ -150,7 +156,7 @@ const NavBar = () => {
               <input
                 type="text"
                 placeholder="Search..."
-                className="border border-gray-300 bg-white h-10 pl-5 pr-10 rounded-full text-sm focus:outline-none"
+                className="border border-gray-400 bg-red-500 bg-opacity-5 h-10 pl-5 pr-10 rounded-full text-sm focus:outline-none"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -160,23 +166,26 @@ const NavBar = () => {
             </div>
           </form>
           <div
-            className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[45vh] left-0 ${isMenuOpen ? "top-[9%]" : "top-[-100%]"
+            className={`nav-links duration-500 md:static absolute md:min-h-fit min-h-[30vh] left-0 ${isMenuOpen ? "top-[12%] z-20 bg-blue-500 lg:bg-transparent" : "top-[-100%]"
               } md:w-auto w-full flex items-center px-5 mt-2`}
           >
-            <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 text-xl t">
+            <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-6 text-xl t">
               <li>
-                <Link to="/" className="hover:text-red-600 hover:underline">
+                <Link to="/" onClick={handleNavLinkClick} className="hover:text-red-600 hover:underline">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="hover:text-red-600 hover:underline">
+                <Link to="/about" onClick={handleNavLinkClick} className="hover:text-red-600 hover:underline">
                   About
                 </Link>
               </li>
               <li>
                 <button
-                  onClick={handleProfileClick}
+                  onClick={() => {
+                    handleProfileClick();
+                    handleNavLinkClick();
+                  }}
                   className="hover:text-red-600 hover:underline cursor-pointer"
                 >
                   {currentUser ? (
