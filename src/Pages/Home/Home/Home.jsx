@@ -6,6 +6,7 @@ import 'swiper/css/bundle';
 import Listingitems from '../ListingItems/Listingitems';
 import Banner from '../Banner/Banner';
 import OurTeam from '../OurTeam/OurTeam';
+import Chatbot from '../../ChatBot/ChatBot';
 
 const Home = () => {
     const [offerListings, setOfferListings] = useState([]);
@@ -69,6 +70,7 @@ const Home = () => {
                 </Link>
             </div> */}
             <Banner />
+            <Chatbot/>
 
             {/* swiper */}
 

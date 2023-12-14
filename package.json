@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@heroicons/react": "^2.0.18",
     "@reduxjs/toolkit": "^2.0.1",
     "axios": "^1.6.2",
     "firebase": "^10.7.1",
@@ -22,6 +21,8 @@
     "react-icons": "^4.12.0",
     "react-redux": "^9.0.2",
     "react-router-dom": "^6.20.1",
+    "react-segment": "^0.1.9",
+    "react-simple-chatbot": "^0.6.1",
     "react-ts-typewriter": "^0.1.8-b",
     "redux-persist": "^6.0.0",
     "sort-by": "^1.2.0",

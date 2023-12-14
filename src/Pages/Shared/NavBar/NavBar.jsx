@@ -148,7 +148,7 @@ const NavBar = () => {
           <div className="flex items-center gap-6">
             <FaBars onClick={toggleMenu} className="cursor-pointer md:hidden" />
             <Link to="/">
-              <h1 className="text-2xl text-red-600">Real State</h1>
+              <h1 className="text-3xl font-bold text-purple-500 hover:text-purple-800">Real State</h1>
             </Link>
           </div>
           <form onSubmit={handleSubmit} className="items-center gap-6">
@@ -171,17 +171,17 @@ const NavBar = () => {
           >
             <ul className="flex md:flex-row flex-col md:gap-[4vw] gap-6 text-xl t">
               <li>
-                <Link to="/" onClick={handleNavLinkClick} className="hover:text-red-600 hover:underline">
+                <Link to="/" onClick={handleNavLinkClick} className="hover:text-purple-600 hover:underline font-bold">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/contact" onClick={handleNavLinkClick} className="hover:text-red-600 hover:underline">
+                <Link to="/contact" onClick={handleNavLinkClick} className="hover:text-purple-600 hover:underline font-bold">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link to="/about" onClick={handleNavLinkClick} className="hover:text-red-600 hover:underline">
+                <Link to="/about" onClick={handleNavLinkClick} className="hover:text-purple-600 hover:underline font-bold">
                   About
                 </Link>
               </li>
@@ -191,12 +191,12 @@ const NavBar = () => {
                     handleProfileClick();
                     handleNavLinkClick();
                   }}
-                  className="hover:text-red-600 hover:underline cursor-pointer"
+                  className="hover:scale-95 hover:underline cursor-pointer"
                 >
                   {currentUser ? (
                     <img className="rounded-full w-7 h-7" src={currentUser.avatar} alt="profile" />
                   ) : (
-                    <span>Login</span>
+                    <span className="hover:text-purple-600 hover:underline font-bold">Login</span>
                   )}
                 </button>
               </li>
