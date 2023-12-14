@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className="relative mt-16 bg-purple-500">
+    <div className="relative mt-16 bg-[#383845] text-white">
       <div className="px-4 pt-12 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
         <div className="grid gap-16 row-gap-10 mb-8 lg:grid-cols-6">
           <div className="md:max-w-md lg:col-span-2">
@@ -11,7 +11,7 @@ const Footer = () => {
               className="inline-flex items-center"
             >
               <svg
-                className="w-8 text-teal-accent-400"
+                className="w-8 text-purple-400"
                 viewBox="0 0 24 24"
                 strokeLinejoin="round"
                 strokeWidth="2"
@@ -25,8 +25,8 @@ const Footer = () => {
                 <rect x="14" y="1" width="7" height="6" />
                 <rect x="14" y="11" width="7" height="12" />
               </svg>
-              <span className="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
-                Company
+              <span className="ml-2 text-xl font-bold tracking-wide text-purple-500 uppercase">
+                Real State Company
               </span>
             </a>
             <div className="mt-4 lg:max-w-sm">
@@ -34,7 +34,7 @@ const Footer = () => {
                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                 accusantium doloremque laudantium, totam rem aperiam.
               </p>
-              <p className="mt-4 text-sm text-deep-purple-50">
+              <p className="mt-4 text-sm text-purple-500">
                 Eaque ipsa quae ab illo inventore veritatis et quasi architecto
                 beatae vitae dicta sunt explicabo.
               </p>

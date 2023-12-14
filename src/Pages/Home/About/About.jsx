@@ -1,16 +1,47 @@
 
+import img1 from "../../../assets/image/2.jpg"
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
+import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
+import Testmonials from "../Testmonials/Testmonials";
 const About = () => {
     return (
-        <div className='py-20 px-4 max-w-6xl mx-auto'>
-            <h1 className='text-3xl font-bold mb-4 text-slate-800'>About Sahand Estate</h1>
-            <p className='mb-4 text-slate-700'>Sahand Estate is a leading real estate agency that specializes in helping clients buy, sell, and rent properties in the most desirable neighborhoods. Our team of experienced agents is dedicated to providing exceptional service and making the buying and selling process as smooth as possible.</p>
-            <p className='mb-4 text-slate-700'>
-                Our mission is to help our clients achieve their real estate goals by providing expert advice, personalized service, and a deep understanding of the local market. Whether you are looking to buy, sell, or rent a property, we are here to help you every step of the way.
-            </p>
-            <p className='mb-4 text-slate-700'>Our team of agents has a wealth of experience and knowledge in the real estate industry, and we are committed to providing the highest level of service to our clients. We believe that buying or selling a property should be an exciting and rewarding experience, and we are dedicated to making that a reality for each and every one of our clients.</p>
+        <div>
+            <Swiper
+                cssMode={true}
+                navigation={true}
+                pagination={true}
+                mousewheel={true}
+                keyboard={true}
+                modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+                className="mySwiper"
+            >
+                <SwiperSlide>
+                    <div className='relative h-[600px]'>
+                        <img src={img1} alt="" className="object-cover h-full w-full" />
+                        {/* <div className='absolute inset-0 flex flex-col justify-center items-center text-center text-white p-6 bg-black bg-opacity-60'>
+                            <h1 className='text-3xl lg:text-6xl font-bold mb-6'>
+                            </h1>
+                        </div> */}
+                    </div>
+                </SwiperSlide>
+            </Swiper>
+            <div>
+                <h1 className="text-3xl text-purple-500 font-bold py-5 text-center">A mortgage and real estate industry agency with deep roots</h1>
+                <p className="text-xl md:mx-28 mx-4">For over 30 years, companies across the mortgage and real estate industries have turned to us for branding and marketing support.<br />
+                    Seroka was founded in 1987 by Pat Seroka with one client; a small mortgage firm with big dreams, tremendous energy, and the courage to lead. In just five years, the firm became the largest independent mortgage company in Chicago and a few years after that, it was sold to the largest bank in Illinois. Since then, Seroka has grown its client-base throughout the United States, with a continued focus on serving the mortgage and real estate industries from its Midwest and East Coast offices.<br />
+
+                    At Seroka, we ensure your brand takes center stage and truly resonates with your target audience. We will show you the right path to meet your growth objectives and beat your competition through strategic brand development and marketing activities.<br />
+
+                    Our approach is designed to meet your individual needs. Whether you are looking for comprehensive services, or help with a specific campaign, our experienced team of branding and marketing professionals can help you achieve the results you need to be successful. Let us put our 30+ years of experience to work for you!</p>
+            </div>
+            <Testmonials/>
         </div>
-    )
-}
+    );
+};
+
 
 export default About

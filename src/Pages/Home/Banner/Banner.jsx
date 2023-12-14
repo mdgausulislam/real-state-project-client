@@ -27,7 +27,7 @@ const Banner = () => {
                         <img src={img1} alt="" className="object-cover h-full w-full" />
                         <div className='absolute inset-0 flex flex-col justify-center items-center text-center text-white p-6 bg-black bg-opacity-60'>
                             <h1 className='text-3xl lg:text-6xl font-bold mb-6'>
-                                <Typewriter text="Find your next" loop={true} speed={500} /> <span className='text-blue-600'>perfect</span>
+                                <Typewriter text="Find your next" loop={true} speed={500} /> <span className='text-purple-600'>perfect</span>
                                 <br />
                                 <Typewriter text="place with ease" loop={true} speed={500} />
                             </h1>
@@ -39,9 +39,9 @@ const Banner = () => {
                             </div>
                             <Link
                                 to={'/search'}
-                                className='text-sm text-blue-800 font-bold hover:underline mt-4'
+                                className='text-sm text-purple-800 font-bold hover:underline mt-4'
                             >
-                                <button className='btn btn-primary'> Lets get started...</button>
+                                <button className='btn bg-purple-500 hover:bg-purple-800 outline-none border-none text-white'> Lets get started...</button>
                             </Link>
                         </div>                     </div>
                 </SwiperSlide>

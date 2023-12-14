@@ -176,6 +176,11 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/contact" onClick={handleNavLinkClick} className="hover:text-red-600 hover:underline">
+                  Contact
+                </Link>
+              </li>
+              <li>
                 <Link to="/about" onClick={handleNavLinkClick} className="hover:text-red-600 hover:underline">
                   About
                 </Link>

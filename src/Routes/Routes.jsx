@@ -9,6 +9,7 @@ import CreatingList from "../Pages/Home/CreatingList/CreatingList";
 import UpdateListing from "../Pages/Home/UpdateListing/UpdateListing";
 import ListingPage from "../Pages/Home/ListingPage/ListingPage";
 import SearchListingPage from "../Pages/Home/SearchListingPage/SearchListingPage";
+import Contact from "../Pages/Contact/COntact";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path: '/about',
         element: <About />
+      },
+      {
+        path: '/contact',
+        element: <Contact />
       },
       {
         path: "/login",
