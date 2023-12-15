@@ -27,7 +27,7 @@ const Banner = () => {
                         <img src={img1} alt="" className="object-cover h-full w-full" />
                         <div className='absolute inset-0 flex flex-col justify-center items-center text-center text-white p-6 bg-black bg-opacity-60'>
                             <h1 className='text-3xl lg:text-6xl font-bold mb-6'>
-                                <Typewriter text="Find your next" loop={true} speed={500} /> <span className='text-purple-600'>perfect</span>
+                                Find your next <span className='text-purple-600'>perfect</span>
                                 <br />
                                 <Typewriter text="place with ease" loop={true} speed={500} />
                             </h1>
