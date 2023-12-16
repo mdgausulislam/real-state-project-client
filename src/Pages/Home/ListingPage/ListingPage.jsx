@@ -29,7 +29,7 @@ const ListingPage = () => {
         const fetchListing = async () => {
             try {
                 setLoading(true);
-                const res = await fetch(`/api/listing/get/${params.id}`);
+                const res = await fetch(`https://real-state-lt3r.onrender.com/api/listing/get/${params.id}`);
                 const data = await res.json();
                 if (data.success === false) {
                     setError(true);
@@ -45,7 +45,7 @@ const ListingPage = () => {
             }
         };
         fetchListing();
-    }, [params.listingId]);
+    }, [params.id]);
 
     return (
         <main>

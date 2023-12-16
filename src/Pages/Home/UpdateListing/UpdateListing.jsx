@@ -35,7 +35,7 @@ const UpdateListing = () => {
     useEffect(() => {
         const fetchListing = async () => {
             const listingId = params.id;
-            const res = await fetch(`/api/listing/get/${listingId}`);
+            const res = await fetch(`https://real-state-lt3r.onrender.com/api/listing/get/${listingId}`);
             const data = await res.json();
             if (data.success === false) {
                 console.log(data.message);
@@ -45,7 +45,7 @@ const UpdateListing = () => {
         };
 
         fetchListing();
-    }, []);
+    }, [params.id]);
 
     const handleImageSubmit = () => {
         if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
@@ -147,7 +147,7 @@ const UpdateListing = () => {
                 return setError('Discount price must be lower than regular price');
             setLoading(true);
             setError(false);
-            const res = await axios.post(`/api/listing/update/${params.id}`, {
+            const res = await axios.post(`https://real-state-lt3r.onrender.com/api/listing/update/${params.id}`, {
                 ...formData,
                 userRef: currentUser._id,
             });

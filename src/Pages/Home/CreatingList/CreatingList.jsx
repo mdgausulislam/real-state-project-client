@@ -1,13 +1,3 @@
-// import { useState } from 'react';
-// import {
-//     getDownloadURL,
-//     getStorage,
-//     ref,
-//     uploadBytesResumable,
-// } from 'firebase/storage';
-// import { app } from '../firebase';
-// import { useSelector } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
 
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { useState } from "react";
@@ -45,7 +35,6 @@ const CreatingList = () => {
             setUploading(true);
             setImageUploadError(false);
             const promises = [];
-
             for (let i = 0; i < files.length; i++) {
                 promises.push(storeImage(files[i]));
             }
@@ -140,7 +129,7 @@ const CreatingList = () => {
                 return setError('Discount price must be lower than regular price');
             setLoading(true);
             setError(false);
-            const res = await axios.post('/api/listing/create', {
+            const res = await axios.post('https://real-state-lt3r.onrender.com/api/listing/create', {
                 ...formData,
                 userRef: currentUser._id,
             });

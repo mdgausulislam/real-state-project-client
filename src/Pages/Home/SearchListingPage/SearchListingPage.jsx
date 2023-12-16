@@ -53,7 +53,7 @@ const SearchListingPage = () => {
             setLoading(true);
             setShowMore(false);
             const searchQuery = urlParams.toString();
-            const res = await fetch(`/api/listing/get?${searchQuery}`);
+            const res = await fetch(`https://real-state-lt3r.onrender.com/api/listing/get?${searchQuery}`);
             const data = await res.json();
             if (data.length > 8) {
                 setShowMore(true);
@@ -225,7 +225,7 @@ const SearchListingPage = () => {
                             <option value='createdAt_asc'>Oldest</option>
                         </select>
                     </div>
-                    <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
+                    <button className='bg-purple-500 text-white p-3 rounded-lg uppercase hover:opacity-95 hover:bg-purple-800'>
                         Search
                     </button>
                 </form>
@@ -253,7 +253,7 @@ const SearchListingPage = () => {
                     {showMore && (
                         <button
                             onClick={onShowMoreClick}
-                            className='text-green-700 hover:underline p-7 text-center w-full'
+                            className='text-purple-700 hover:underline p-7 text-center w-full'
                         >
                             Show more
                         </button>

@@ -59,7 +59,7 @@ const NavBar = () => {
               <input
                 type="text"
                 placeholder="Search..."
-                className="border border-gray-400 bg-purple-500 bg-opacity-5 h-10 md:pl-5 md:pr-10 rounded-full text-sm focus:outline-none"
+                className="border border-gray-400 bg-purple-500 bg-opacity-5 h-10 pl-5 md:pr-10 rounded-full text-sm focus:outline-none"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />

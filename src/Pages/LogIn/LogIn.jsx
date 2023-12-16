@@ -8,6 +8,7 @@ import {
   signInSuccess,
 } from "../../redux/user/userSlice";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin";
+import Swal from "sweetalert2";
 
 const LogIn = () => {
   const [formData, setFormData] = useState({});
@@ -26,7 +27,7 @@ const LogIn = () => {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await axios.post("/api/auth/login", formData);
+      const res = await axios.post("https://real-state-lt3r.onrender.com/api/auth/login", formData);
       console.log(res.data);
 
       if (res.data.success === false) {
@@ -34,6 +35,13 @@ const LogIn = () => {
         return;
       }
       dispatch(signInSuccess(res.data));
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Login Successful",
+        showConfirmButton: false,
+        timer: 1500
+    });
       navigate("/");
     } catch (error) {
       dispatch(signInFailure(error.message));

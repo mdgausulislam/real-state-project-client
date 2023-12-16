@@ -5,6 +5,7 @@ import { app } from "../../firebase/firebase.config";
 import { deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserFailure, signOutUserStart, signOutUserSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from "../../redux/user/userSlice";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const Profile = () => {
@@ -58,7 +59,7 @@ const Profile = () => {
         e.preventDefault();
         try {
             dispatch(updateUserStart());
-            const res = await axios.post(`/api/user/update/${currentUser._id}`, formData);
+            const res = await axios.post(`https://real-state-lt3r.onrender.com/api/user/update/${currentUser._id}`, formData);
             console.log(res.data);
             if (res.data.success === false) {
                 dispatch(updateUserFailure(res.data.message));
@@ -74,14 +75,39 @@ const Profile = () => {
 
     const handleDeleteUser = async () => {
         try {
-            dispatch(deleteUserStart());
-            const res = await axios.delete(`/api/user/delete/${currentUser._id}`)
-            if (res.data.success === false) {
-                dispatch(deleteUserFailure(res.data.message));
-                return;
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be delete your acount!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            });
+
+            if (result.isConfirmed) {
+                // If user confirms, proceed with the deletion process
+                dispatch(deleteUserStart());
+                const res = await axios.delete(`https://real-state-lt3r.onrender.com/api/user/delete/${currentUser._id}`);
+
+                if (res.data.success === false) {
+                    dispatch(deleteUserFailure(res.data.message));
+                    return;
+                }
+
+                dispatch(deleteUserSuccess(res.data));
+
+                // Display success message after account deletion
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Account Deleted Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => {
+                    navigate('/signup'); // Redirect to signup page after the alert is closed
+                });
             }
-            dispatch(deleteUserSuccess(res.data));
-            navigate('/signup');
         } catch (error) {
             dispatch(deleteUserFailure(error.message));
         }
@@ -90,13 +116,20 @@ const Profile = () => {
     const handleSignOut = async () => {
         try {
             dispatch(signOutUserStart());
-            const res = await fetch('/api/auth/signout');
+            const res = await fetch('https://real-state-lt3r.onrender.com/api/auth/signout');
             const data = await res.json();
             if (data.success === false) {
                 dispatch(signOutUserFailure(data.message));
                 return;
             }
             dispatch(signOutUserSuccess(data));
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "logout Successfully",
+                showConfirmButton: false,
+                timer: 1500,
+            })
             navigate('/login')
         } catch (error) {
             dispatch(signOutUserFailure(error.message));
@@ -106,7 +139,7 @@ const Profile = () => {
     const handleShowListings = async () => {
         try {
             setShowListingsError(false);
-            const res = await axios.get(`/api/user/listings/${currentUser._id}`);
+            const res = await axios.get(`https://real-state-lt3r.onrender.com/api/user/listings/${currentUser._id}`);
             if (res.data.success === false) {
                 setShowListingsError(true);
                 return;
@@ -119,7 +152,7 @@ const Profile = () => {
 
     const handleListingDelete = async (listingId) => {
         try {
-            const res = await fetch(`/api/listing/delete/${listingId}`, {
+            const res = await fetch(`https://real-state-lt3r.onrender.com/api/listing/delete/${listingId}`, {
                 method: 'DELETE',
             });
             const data = await res.json();

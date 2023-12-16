@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
@@ -20,7 +21,7 @@ const SignUp = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await axios.post("/api/auth/signup", formData);
+      const res = await axios.post("https://real-state-lt3r.onrender.com/api/auth/signup", formData);
       console.log(res.data);
 
       if (res.data.success === false) {
@@ -30,6 +31,13 @@ const SignUp = () => {
       }
       setLoading(false);
       setError(null);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Account Created Successfully",
+        showConfirmButton: false,
+        timer: 1500
+      });
       navigate("/login");
     } catch (error) {
       setLoading(false);
